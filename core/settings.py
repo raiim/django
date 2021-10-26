@@ -37,6 +37,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django_crontab',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -76,6 +77,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
+CRONJOBS = [
+    # ('0 0 * * *', 'restaurants.cron.history_cron_job'),  # run daily - midnight
+    ('*/2 * * * *', 'restaurants.cron.history_cron_job'),
+]
+# cron_path = os.path.join(BASE_DIR, "restaurants/cron/crontab.sh")
+# CRONTAB_EXECUTABLE = cron_path
+# CRONTAB_EXECUTABLE = '/usr/bin/crontab'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -86,7 +94,7 @@ DATABASES = {
         'NAME': env.get('DB_NAME'),
         'USER': env.get('DB_USER'),
         'PASSWORD': env.get('DB_PASSWORD'),
-        'HOST': 'db',
+        'HOST': env.get('DB_HOST'),
         'PORT': 5432,
     }
 }
@@ -138,3 +146,5 @@ MEDIA_ROOT = BASE_DIR
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = '/'

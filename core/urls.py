@@ -21,8 +21,9 @@ import restaurants.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', restaurants.views.home_page, name='home'),
-    path('history/', restaurants.views.history_page, name='history'),
+    path('', restaurants.views.index, name='index'),
+    path('vote/<int:restaurant_id>', restaurants.views.vote_form, name='vote'),
+    path('history/', restaurants.views.history, name='history'),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

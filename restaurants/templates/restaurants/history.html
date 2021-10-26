@@ -1,10 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>History</title>
-</head>
-<body>
-History
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<main>
+  <div class="container mt-2">
+    <h2>History</h2>
+    <p>The history of selected restaurants per time period</p>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Restaurant</th>
+          <th>Date</th>
+          <th>Votes</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for record in history.all %}
+        <tr>
+          <td>{{ record.name }}</td>
+          <td>{{ record.date }}</td>
+          <td>{{ record.vote_amount }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</main>
+{% endblock %}

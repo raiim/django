@@ -8,7 +8,9 @@ services:
       - "8000:8000"
     image: app:django
     container_name: django_vote_container
-    command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      bash -c "python manage.py add_group
+      && python manage.py runserver 0.0.0.0:8000"
     depends_on:
       - db
   db:
@@ -20,4 +22,3 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     container_name: postgres_db
-
