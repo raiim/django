@@ -53,6 +53,12 @@ class History(models.Model):
     vote_amount = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
     date = models.DateField(null=True)
 
+    class Meta:
+        verbose_name_plural = 'History'
+
+    def __str__(self):
+        return self.name
+
 
 class Vote(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
@@ -64,6 +70,9 @@ class Setting(models.Model):
     name = models.CharField(max_length=20)
     value = models.CharField(max_length=200)
     note = models.TextField(blank=True)
+
+    class Meta:
+        verbose_name_plural = 'Settings'
 
     def __str__(self):
         return self.name

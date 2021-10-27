@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Restaurant, Setting
+from .models import Restaurant, Setting, History
 
 
 # Register your models here.
@@ -17,3 +17,14 @@ class SettingAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Setting, SettingAdmin)
+
+
+class HistoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'date', 'vote_amount')
+    readonly_fields = ('name', 'date', 'vote_amount')
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+
+admin.site.register(History, HistoryAdmin)

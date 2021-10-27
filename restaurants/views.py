@@ -38,6 +38,7 @@ def history(request):
         return redirect('/')
     data = {
         'history': history_data,
+        'user': request.user.username,
         'date_today': datetime.today().date(),
     }
     return render(request, 'restaurants/history.html', data)
