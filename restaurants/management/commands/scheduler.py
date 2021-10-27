@@ -33,17 +33,6 @@ class Command(BaseCommand):
         if not max_vote_amount:
             return
 
-        def create_history(restaurant):
-            exist = History.objects.filter(date=datetime.today().date())
-            if not exist:
-                History.objects.create(
-                    name=restaurant.name,
-                    vote_amount=restaurant.vote_amount,
-                    date=datetime.today().replace(microsecond=0)
-                )
-                Restaurant.objects.update(vote_amount=0.00)
-                Vote.objects.all().delete()
-
         restaurants = Restaurant.objects.filter(vote_amount=max_vote_amount)
         if len(restaurants) > 1:
             data = {}
@@ -59,6 +48,17 @@ class Command(BaseCommand):
                     })
             if data:
                 restaurants = [rec for rec in restaurants if rec.id == data.get('restaurant')][0]
-                create_history(restaurants)
+                self._create_history(restaurants)
         else:
-            create_history(restaurants)
+            self._create_history(restaurants[0])
+
+    def _create_history(self, restaurant):
+        exist = History.objects.filter(date=datetime.today().date())
+        if not exist:
+            History.objects.create(
+                name=restaurant.name,
+                vote_amount=restaurant.vote_amount,
+                date=datetime.today().replace(microsecond=0)
+            )
+            Restaurant.objects.update(vote_amount=0.00)
+            Vote.objects.all().delete()
