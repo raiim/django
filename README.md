@@ -6,7 +6,11 @@ Docker
  - docker-compose build
  - docker-compose up
  - docker exec -it django_vote_container bash
- - python manage.py crontab add
+   - python manage.py crontab add
+   
+   Create Admin User (execute one time for fresh start)
+   - python manage.py createsuperuser
+   
 
 Configurable votes:
  - Select Table - Settings
