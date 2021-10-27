@@ -6,6 +6,7 @@ from .models import Restaurant, Setting
 class RestaurantAdmin(admin.ModelAdmin):
     readonly_fields = ('vote_amount',)
     list_display = ('name', 'vote_amount')
+    exclude = ('image',)
 
 
 admin.site.register(Restaurant, RestaurantAdmin)

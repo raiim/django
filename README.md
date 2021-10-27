@@ -1,6 +1,6 @@
 # Vote app
 
-- run with Docker
+Docker
   - docker-compose build
   - docker-compose up
 

@@ -30,7 +30,7 @@ def get_history_data():
             restaurants = [rec for rec in restaurants if rec.id == data.get('restaurant')][0]
             create_history(restaurants)
     else:
-        create_history(restaurants)
+        create_history(restaurants[0])
 
 
 def create_history(restaurant):
