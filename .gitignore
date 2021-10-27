@@ -12,3 +12,4 @@ data/
 venv/
 
 .idea/
+.env

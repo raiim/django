@@ -13,8 +13,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import json
-import django_heroku
-django_heroku.settings(locals())
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -28,10 +26,10 @@ with open(json_file_path) as file:
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env.get('SECRET_KEY')
+# SECRET_KEY = env.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.get('DEBUG')
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -86,10 +84,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env.get('DB_NAME'),
-        'USER': env.get('DB_USER'),
-        'PASSWORD': env.get('DB_PASSWORD'),
-        'HOST': 'db',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        # for Docker 'HOST': 'db'
+        'HOST': 'localhost',
         'PORT': 5432,
     }
 }
@@ -151,3 +150,5 @@ CRONJOBS = [
     ('*/2 * * * *', 'restaurants.cron.history_cron_job'),
 ]
 
+import django_heroku
+django_heroku.settings(locals())
