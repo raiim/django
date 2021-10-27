@@ -11,11 +11,13 @@ def user_created(sender, instance, created, **kwargs):
         if not instance.groups.filter(name='Restaurant Group').exists():
             try:
                 restaurant_group = Group.objects.get(name='Restaurant Group')
+                settings_group = Group.objects.get(name='Settings Group')
             except Group.DoesNotExist:
                 pass
             else:
                 instance.is_staff = True
                 instance.groups.add(restaurant_group)
+                instance.groups.add(settings_group)
                 instance.save()
 
 
