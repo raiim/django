@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import json
+import django_heroku
+django_heroku.settings(locals())
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -148,3 +150,4 @@ CRONJOBS = [
     # ('0 0 * * *', 'restaurants.cron.history_cron_job'),  # run daily - midnight
     ('*/2 * * * *', 'restaurants.cron.history_cron_job'),
 ]
+

@@ -1,0 +1,14 @@
+# exclude everything
+images/*
+
+# exception to the rule
+!images/.gitkeep
+
+__pycache__/
+
+environment.json
+commands.txt
+data/
+venv/
+
+.idea/
