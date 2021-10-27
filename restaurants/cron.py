@@ -5,8 +5,7 @@ from datetime import datetime
 
 
 def history_cron_job():
-    print("\n--------\nCRON Job\n--------\n")
-    # get_history_data()
+    get_history_data()
 
 
 def get_history_data():

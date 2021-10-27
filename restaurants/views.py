@@ -1,10 +1,21 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Restaurant, History, Vote, Setting
-from django.contrib.auth.models import User
 from datetime import datetime
 from decimal import Decimal
 from . import forms
 import ast
+
+
+# Create your views here.
+def register(response):
+    if response.method == "POST":
+        form = forms.RegisterForm(response.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("/login")
+    else:
+        form = forms.RegisterForm()
+    return render(response, "restaurants/register.html", {"form": form})
 
 
 def index(request):
@@ -15,7 +26,8 @@ def index(request):
         'date_today': datetime.today().date(),
         'user': request.user.username,
         'message_can_vote': show_message,
-        'votes': total_votes
+        'message_add_restaurant': True if not restaurants else False,
+        'votes': 0 if not restaurants else total_votes
     }
     return render(request, 'restaurants/index.html', data)
 
@@ -47,7 +59,8 @@ def get_configurable_votes():
 def check_user_can_vote(user_id):
     config_value = get_configurable_votes()
     default_votes_per_day = Restaurant.votes_per_day
-    votes_per_day = config_value or default_votes_per_day
+    restaurants = len(Restaurant.objects.all()) or 1
+    votes_per_day = (config_value or default_votes_per_day) * restaurants
     all_votes = len(Vote.objects.filter(user=user_id))
     total = votes_per_day - all_votes
     return (total, True) if all_votes < votes_per_day else (total, False)

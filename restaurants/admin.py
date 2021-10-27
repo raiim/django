@@ -12,7 +12,7 @@ admin.site.register(Restaurant, RestaurantAdmin)
 
 
 class SettingAdmin(admin.ModelAdmin):
-    list_display = ('name', 'value')
+    list_display = ('name', 'value', 'note')
 
 
 admin.site.register(Setting, SettingAdmin)

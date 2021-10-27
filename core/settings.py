@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'restaurants'
+    'crispy_forms',
+    'restaurants',
 ]
 
 MIDDLEWARE = [
@@ -77,14 +78,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-CRONJOBS = [
-    # ('0 0 * * *', 'restaurants.cron.history_cron_job'),  # run daily - midnight
-    ('*/2 * * * *', 'restaurants.cron.history_cron_job'),
-]
-# cron_path = os.path.join(BASE_DIR, "restaurants/cron/crontab.sh")
-# CRONTAB_EXECUTABLE = cron_path
-# CRONTAB_EXECUTABLE = '/usr/bin/crontab'
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -94,7 +87,7 @@ DATABASES = {
         'NAME': env.get('DB_NAME'),
         'USER': env.get('DB_USER'),
         'PASSWORD': env.get('DB_PASSWORD'),
-        'HOST': env.get('DB_HOST'),
+        'HOST': 'db',
         'PORT': 5432,
     }
 }
@@ -148,3 +141,10 @@ MEDIA_ROOT = BASE_DIR
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = '/'
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+CRONJOBS = [
+    # ('0 0 * * *', 'restaurants.cron.history_cron_job'),  # run daily - midnight
+    ('*/2 * * * *', 'restaurants.cron.history_cron_job'),
+]

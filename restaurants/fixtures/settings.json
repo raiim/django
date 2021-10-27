@@ -1,0 +1,11 @@
+[
+  {
+    "model": "restaurants.setting",
+    "pk": 1,
+    "fields": {
+      "name": "votes_per_day",
+      "value": "0",
+      "note": "'votes_per_day' is a field used in Restaurant to override default value"
+    }
+  }
+]

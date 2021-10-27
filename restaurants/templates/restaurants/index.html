@@ -10,6 +10,25 @@
             </div>
         {% endif %}
 
+        {% if message_add_restaurant %}
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                You have to add a restaurant before start voting!
+                {% if not user %}
+                    <a href="/login" title="Log in">Log in</a>
+                {% else %}
+                    <a href="/admin">Click here</a>
+                {% endif %}
+            </div>
+        {% else %}
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                {% if not user %}
+                    Start voting <a href="/login" title="Log in"> Log in</a>
+                {% else %}
+                    <a href="/admin">Add more restaurants</a>
+                {% endif %}
+            </div>
+        {% endif %}
+
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
           {% for restaurant in restaurants.all %}
           <div class="col">
