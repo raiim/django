@@ -1,6 +1,6 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
-from django.db.models import Max
 from .models import Restaurant, History, Vote
+from django.db.models import Max
 from datetime import datetime
 
 sched = BlockingScheduler()
