@@ -1,8 +1,14 @@
 # Restaurant Vote app
 
+Terminal
+ - generate SECRET_KEY if needed 
+ - python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
+
+create file django/environment.json
+ - { "SECRET_KEY": "..." }
+
 Docker
- - add file environment.json
-   - { "SECRET_KEY": "..." }
+ - install docker app
  - docker-compose build
  - docker-compose up
  - docker exec -it django_vote_container bash
@@ -13,6 +19,7 @@ Docker
    
 
 Configurable votes:
+ - Login, go to admin site
  - Select Table - Settings
  - add number of votes per restaurant into value of votes_per_day
  - default is 0 (hardcoded votes is 5)
