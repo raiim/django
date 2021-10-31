@@ -12,12 +12,12 @@ class Command(BaseCommand):
         self.stdout.write("Works!")
         sched = BlockingScheduler()
 
-        @sched.scheduled_job('interval', hour=0)
+        @sched.scheduled_job('interval', hours=0)
         def timed_job():
             print('This job is run every every day at midnight')
             self._create_history_records()
 
-        # @sched.scheduled_job('cron', hour=0)
+        # @sched.scheduled_job('cron', hours=0)
         # def scheduled_job():
         #     print('This job is run one time')
         #     self._create_history_records()
