@@ -12,7 +12,9 @@ class Command(BaseCommand):
         self.stdout.write("Works!")
         sched = BlockingScheduler()
 
-        @sched.scheduled_job('interval', hours=0)
+        next_day = datetime.today().replace(microsecond=0, hour=0, minute=0, second=0) + timedelta(days=1)
+
+        @sched.scheduled_job('interval', days=1, start_date=next_day)
         def timed_job():
             print('This job is run every every day at midnight')
             self._create_history_records()
@@ -58,7 +60,7 @@ class Command(BaseCommand):
             History.objects.create(
                 name=restaurant.name,
                 vote_amount=restaurant.vote_amount,
-                date=datetime.today().replace(microsecond=0) - timedelta(days=1)
+                date=datetime.today().replace(microsecond=0)  # - timedelta(days=1)
             )
             Restaurant.objects.update(vote_amount=0.00)
             Vote.objects.all().delete()
