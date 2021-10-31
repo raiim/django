@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand
 from apscheduler.schedulers.blocking import BlockingScheduler
 from restaurants.models import Restaurant, History, Vote
 from django.db.models import Max
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 class Command(BaseCommand):
@@ -12,15 +12,15 @@ class Command(BaseCommand):
         self.stdout.write("Works!")
         sched = BlockingScheduler()
 
-        # @sched.scheduled_job('interval', minutes=3)
-        # def timed_job():
-        #     print('This job is run every three minutes.')
-        #     self._create_history_records()
-
-        @sched.scheduled_job('cron', hour=0)
-        def scheduled_job():
-            print('This job is run every day at midnight')
+        @sched.scheduled_job('interval', hour=0)
+        def timed_job():
+            print('This job is run every every day at midnight')
             self._create_history_records()
+
+        # @sched.scheduled_job('cron', hour=0)
+        # def scheduled_job():
+        #     print('This job is run one time')
+        #     self._create_history_records()
 
         sched.start()
         print("Scheduler started")
@@ -58,7 +58,7 @@ class Command(BaseCommand):
             History.objects.create(
                 name=restaurant.name,
                 vote_amount=restaurant.vote_amount,
-                date=datetime.today().replace(microsecond=0)
+                date=datetime.today().replace(microsecond=0) - timedelta(days=1)
             )
             Restaurant.objects.update(vote_amount=0.00)
             Vote.objects.all().delete()
