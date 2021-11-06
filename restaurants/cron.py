@@ -1,7 +1,7 @@
 
 from django.db.models import Max
 from .models import Restaurant, History, Vote
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 def history_cron_job():
@@ -34,12 +34,13 @@ def get_history_data():
 
 
 def create_history(restaurant):
-    exist = History.objects.filter(date=datetime.today().date())
+    check_date = datetime.now().date() - timedelta(days=1)
+    exist = History.objects.filter(date=check_date)
     if not exist:
         History.objects.create(
             name=restaurant.name,
             vote_amount=restaurant.vote_amount,
-            date=datetime.today().replace(microsecond=0)
+            date=check_date
         )
         Restaurant.objects.update(vote_amount=0.00)
         Vote.objects.all().delete()
