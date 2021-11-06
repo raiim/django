@@ -12,16 +12,9 @@ class Command(BaseCommand):
         self.stdout.write("Works!")
         sched = BlockingScheduler()
 
-        # next_day = datetime.today().replace(microsecond=0, hour=0, minute=0, second=0) + timedelta(days=1)
-        #
-        # @sched.scheduled_job('interval', days=1, start_date=next_day)
-        # def timed_job():
-        #     print('This job is run every every day at midnight')
-        #     self._create_history_records()
-
-        @sched.scheduled_job('cron', day_of_week='mon-sun', hour=13, minute=20)
+        @sched.scheduled_job('cron', day_of_week='mon-sun', hour=0, minute=1)
         def scheduled_job():
-            print('This job is run one time')
+            print('This cron job run every day - Create History')
             self._create_history_records()
 
         sched.start()
