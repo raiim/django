@@ -146,8 +146,8 @@ LOGOUT_REDIRECT_URL = '/'
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 CRONJOBS = [
-    # ('0 0 * * *', 'restaurants.cron.history_cron_job'),
-    ('*/2 * * * *', 'restaurants.cron.history_cron_job'),
+    ('0 0 * * *', 'restaurants.cron.history_cron_job'),
+    # ('*/2 * * * *', 'restaurants.cron.history_cron_job'),
 ]
 
 import django_heroku
